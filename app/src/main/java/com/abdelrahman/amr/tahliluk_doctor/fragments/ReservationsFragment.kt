@@ -72,7 +72,7 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
         bindingDialog = DialogProgressBinding.inflate(layoutInflater)
         setDatePicker()
         checkPermission()
-//        getCurrentLocation()
+        getCurrentLocation()
 
         return mReservationFragment.root
     }
@@ -174,8 +174,10 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
             .requestLocationUpdates(locationRequest, object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     super.onLocationResult(locationResult)
-                    LocationServices.getFusedLocationProviderClient(this@ReservationsFragment.requireActivity())
-                        .removeLocationUpdates(this)
+                    activity?.let {
+                        LocationServices.getFusedLocationProviderClient(it)
+                            .removeLocationUpdates(this)
+                    }
                     if (locationResult.locations.size > 0) {
                         val index = locationResult.locations.size - 1
                         val latitude = locationResult.locations[index].latitude
