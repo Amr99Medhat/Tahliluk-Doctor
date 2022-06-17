@@ -1,3 +1,78 @@
 <resources>
-    <string name="app_name">Tahliluk Doctor</string>
+    <string name="app_name">Tahliluk-Doctor</string>
+    <string name="app_name_splash">Tahliluk Doctor</string>
+    <string name="SplashScreen_AppDesc">Your medical analysis at your home</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="choose_lab">Choose the lab you work in</string>
+    <string name="sign_in">Sign in</string>
+    <string name="please_sign_in_to_continue">Please sign in to continue</string>
+    <string name="password">Password</string>
+    <string name="forgot">Forgot?</string>
+    <string name="don_t_have_a_doctor_account">Don\'t have a doctor account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already_have_a_doctor_account">Already have a doctor account?</string>
+    <string name="verify_your_phone_number">Verify your phone number</string>
+    <string name="verify">Verify</string>
+    <string name="select_Lab">Select Lab</string>
+    <string name="no_labs_added">No Labs Added Yet</string>
+    <string name="enter_phone_number">Enter phone Number</string>
+    <string name="enter_password">Enter password</string>
+    <string name="must_be_11_digits">Must be 11 digits</string>
+    <string name="this_phone_number_does_not_have_an_account">This phone number doesn\'t have an account !</string>
+    <string name="error">Error</string>
+    <string name="unable_to_updated_token">Unable to updated token</string>
+    <string name="less_than_7_digits">Less than 7 digits !</string>
+    <string name="not_the_same_password">Not the same password !</string>
+    <string name="something_wrong">Something wrong !</string>
+    <string name="unable_to_reset_your_password">Unable to reset your password</string>
+    <string name="unable_to_sign_in">Unable to sign in</string>
+    <string name="select_profile_image">Select profile image</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="this_phone_number_already_have_an_account">This phone number already have an account !</string>
+    <string name="wrong_otp">Wrong OTP</string>
+    <string name="wrong_code">Wrong Code !</string>
+    <string name="enter_current_password">Enter current password</string>
+    <string name="check_current_password">Check password</string>
+    <string name="enter_confirm_password">Enter confirm password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_reservations">no reservations added yet</string>
+    <string name="please_wait">please wait</string>
+    <string name="call">call</string>
+    <string name="show_on_map">Show Address in Map</string>
+    <string name="openMap">show on map</string>
+
+    <string name="order_details">order details</string>
+    <string name="visit_price" translatable="false">"50.0EGP"</string>
+    <string name="order_date">Order Date :</string>
+    <string name="order_state">Order State :</string>
+    <string name="analyses_result">Analysis Result</string>
+    <string name="labName">Lab name :</string>
+    <string name="pending">Pending</string>
+    <string name="inprogress">in Progress</string>
+    <string name="completed">Completed</string>
+    <string name="Upload_result">Upload Result</string>
+    <string name="selected_analyses">selected analytics</string>
+    <string name="selectedaddress">Selected Address</string>
+    <string name="lbl_subtotal">sub total</string>
+    <string name="lbl_Home_visit_cost">"Home visit cost "</string>
+    <string name="lbl_total_amount">total amount</string>
+    <string name="The_cost_of_the_analysis">The cost of the analysis</string>
+    <string name="Tv_Analytics">Analytics</string>
+    <string name="Visiting_expenses">Visiting expenses</string>
+    <string name="patient_information">patient name</string>
+    <string name="egyptian_currency">EGP</string>
+    <string name="Additional_instructions">Additional instructions</string>
+    <string name="result_uploaded">Result Uploaded</string>
+    <string name="MediacalAnalysis">Medical Analysis</string>
+    <string name="finish">Finish</string>
+    <string name="PatientName">Patient Name :</string>
+    <string name="in_progress">In Progress</string>
+    <string name="confirm">Confirmation of samples taken</string>
+
+
 </resources>

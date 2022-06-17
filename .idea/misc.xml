@@ -3,6 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable-v24/background_bottom_sheet_button.xml" value="0.1355" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/background_icon.xml" value="0.1285" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/background_image.xml" value="0.1285" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/background_input.xml" value="0.1285" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/background_oval_shape_right.xml" value="0.1285" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/ic_completed_reservations.xml" value="0.1475" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/ic_refresh.xml" value="0.1285" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/ic_reservations.xml" value="0.1475" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/dialog_progress.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_in_progress_reservations.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_reservation_details.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_reservations.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_reservations_details.xml" value="0.16168478260869565" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_In_progress_reservations.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_analysis.xml" value="0.209375" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_inprogress_reservations.xml" value="0.14855072463768115" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_reservations.xml" value="0.17488789237668162" />
         <entry key="..\:/Users/Amr/AndroidStudioProjects/TahlilukDoctor/app/src/main/res/layout/activity_main.xml" value="0.41510416666666666" />
       </map>
     </option>
