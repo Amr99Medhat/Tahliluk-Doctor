@@ -7,16 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.abdelrahman.amr.tahliluk_doctor.R
 import com.abdelrahman.amr.tahliluk_doctor.adapters.InProgressReservationsAdapter
+import com.abdelrahman.amr.tahliluk_doctor.databinding.DialogProgressBinding
 import com.abdelrahman.amr.tahliluk_doctor.databinding.FragmentInProgressReservationsBinding
+import com.abdelrahman.amr.tahliluk_doctor.listeners.InProgressReservationListener
+import com.abdelrahman.amr.tahliluk_doctor.listeners.ReservationListener
+import com.abdelrahman.amr.tahliluk_doctor.models.Patient
 import com.abdelrahman.amr.tahliluk_doctor.models.Reserve
+import com.abdelrahman.amr.tahliluk_doctor.utilities.Constants
 import com.abdelrahman.amr.tahliluk_doctor.viewModels.CompletedReservationsViewModel
 
 import com.amrmedhatandroid.tahliluk_laboratory.utilities.SupportClass
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import org.joda.time.DateTime
 import java.text.SimpleDateFormat
@@ -24,11 +33,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class InProgressReservationsFragment : Fragment(),DatePickerListener {
+class InProgressReservationsFragment : Fragment(),DatePickerListener,
+    InProgressReservationListener {
     private lateinit var mInProgressReservationFragment: FragmentInProgressReservationsBinding
     private lateinit var mReservationsListAdapter: InProgressReservationsAdapter
     private  var mReservationsList: ArrayList<Reserve> = ArrayList()
+    private lateinit var bindingDialog: DialogProgressBinding
     private lateinit var minProgressReservationsViewModel:CompletedReservationsViewModel
+    private var parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +53,7 @@ class InProgressReservationsFragment : Fragment(),DatePickerListener {
         savedInstanceState: Bundle?
     ): View {
         mInProgressReservationFragment = FragmentInProgressReservationsBinding.inflate(layoutInflater)
+        bindingDialog = DialogProgressBinding.inflate(layoutInflater)
         setDatePicker()
         return mInProgressReservationFragment.root
     }
@@ -120,7 +134,7 @@ class InProgressReservationsFragment : Fragment(),DatePickerListener {
                     mInProgressReservationFragment.rvReservations.visibility = View.VISIBLE
                     mInProgressReservationFragment.tvNoReservations.visibility = View.GONE
                     mReservationsListAdapter = InProgressReservationsAdapter(
-                        mReservationsList)
+                        mReservationsList,this@InProgressReservationsFragment)
                     mInProgressReservationFragment.rvReservations.adapter =
                         mReservationsListAdapter
 
@@ -128,5 +142,46 @@ class InProgressReservationsFragment : Fragment(),DatePickerListener {
             }
         }
 
+    }
+
+    override fun onReservationClickListener(reserve: Reserve) {
+        SupportClass.showProgressBar(
+            requireContext(),
+            resources.getString(R.string.please_wait),
+            bindingDialog.tvProgressText
+        )
+        var patient = Patient()
+        lifecycleScope.launchWhenResumed {
+            minProgressReservationsViewModel.getPatientInfo(reserve.patientId!!).collect {
+                patient = it
+
+            }
+        }
+        coroutineScope.launch {
+            delay(500)
+            val inReservationDetailsFragment = InProgressReservationDetailsFragment.newInstance()
+            val bundle = Bundle()
+            bundle.putParcelable(Constants.Reservation,reserve)
+            bundle.putString(Constants.KEY_PATIENT_FIRST_NAME, patient.firstName)
+            Log.d("name",patient.firstName)
+            bundle.putString(Constants.KEY_PATIENT_LAST_NAME, patient.lastName)
+            bundle.putString(Constants.KEY_PATIENT_IMAGE, patient.image)
+            inReservationDetailsFragment.arguments = bundle
+            val fragmentManager: FragmentManager =
+                (mInProgressReservationFragment.root.context as FragmentActivity).supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.setCustomAnimations(
+                R.anim.fui_slide_in_right,
+                R.anim.fragmentanimation,
+                R.anim.fui_slide_in_right,
+                R.anim.fragmentanimation
+            )
+            fragmentTransaction.replace(R.id.frameLayout, inReservationDetailsFragment)
+            fragmentTransaction.addToBackStack(null)
+
+            fragmentTransaction.commit()
+            SupportClass.hideDialog()
+
+        }
     }
 }

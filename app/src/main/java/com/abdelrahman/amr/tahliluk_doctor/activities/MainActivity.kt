@@ -77,6 +77,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        mActivityMainBinding.bottomNavigation.show(1, false)
         replaceFragment(ReservationsFragment.newInstance())
+
     }
 }

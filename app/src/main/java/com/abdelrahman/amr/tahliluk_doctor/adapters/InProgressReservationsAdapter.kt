@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abdelrahman.amr.tahliluk_doctor.R
 import com.abdelrahman.amr.tahliluk_doctor.databinding.ItemContainerInprogressReservationsBinding
 import com.abdelrahman.amr.tahliluk_doctor.databinding.ItemContainerReservationsBinding
+import com.abdelrahman.amr.tahliluk_doctor.listeners.InProgressReservationListener
 import com.abdelrahman.amr.tahliluk_doctor.listeners.ReservationListener
 import com.abdelrahman.amr.tahliluk_doctor.models.Reserve
 
@@ -17,9 +18,11 @@ import com.abdelrahman.amr.tahliluk_doctor.models.Reserve
 
 class InProgressReservationsAdapter : RecyclerView.Adapter<InProgressReservationsAdapter.ReservationsViewHolder> {
     private  lateinit var reservationsList:ArrayList<Reserve>
+    private lateinit var listener: InProgressReservationListener
     constructor()
-    constructor(reservationsList: ArrayList<Reserve> ){
+    constructor(reservationsList: ArrayList<Reserve>,listener:InProgressReservationListener ){
         this.reservationsList = reservationsList
+        this.listener=listener
     }
 
 
@@ -37,8 +40,9 @@ class InProgressReservationsAdapter : RecyclerView.Adapter<InProgressReservation
                "Accepted" -> binding.tvOrderState.setTextColor(Color. parseColor("#284693"))
                "Completed" -> binding.tvOrderState.setTextColor(Color. parseColor("#284693"))
            }
-
-
+           binding.root.setOnClickListener {
+               listener.onReservationClickListener(reserve)
+           }
        }
    }
 

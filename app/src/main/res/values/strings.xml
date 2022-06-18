@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tahliluk-Doctor</string>
+    <string name="app_name">Tahliluk Doctor</string>
     <string name="app_name_splash">Tahliluk Doctor</string>
     <string name="SplashScreen_AppDesc">Your medical analysis at your home</string>
     <string name="first_name">First Name</string>

@@ -13,6 +13,7 @@
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/drawable/ic_reservations.xml" value="0.1475" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/dialog_progress.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_in_progress_reservation_details.xml" value="0.1" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_in_progress_reservations.xml" value="0.1" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_reservation_details.xml" value="0.1" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/fragment_reservations.xml" value="0.1" />
@@ -21,6 +22,8 @@
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_analysis.xml" value="0.209375" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_inprogress_reservations.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/layout/item_container_reservations.xml" value="0.17488789237668162" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.127" />
+        <entry key="..\:/Users/Abdelrahman Amr/Documents/GitHub/Tahliluk-Doctor/app/src/main/res/mipmap-anydpi-v26/ic_launcher_tahliluk_logo.xml" value="0.127" />
         <entry key="..\:/Users/Amr/AndroidStudioProjects/TahlilukDoctor/app/src/main/res/layout/activity_main.xml" value="0.41510416666666666" />
         <entry key="..\:/Users/Amr/Desktop/Tahliluk-Doctor/app/src/main/res/layout/activity_sign_up.xml" value="0.42916666666666664" />
       </map>

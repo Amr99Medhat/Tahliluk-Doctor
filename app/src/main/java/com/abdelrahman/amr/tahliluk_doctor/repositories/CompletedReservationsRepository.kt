@@ -2,6 +2,7 @@ package com.abdelrahman.amr.tahliluk_doctor.repositories
 
 import android.content.Context
 import com.abdelrahman.amr.tahliluk_doctor.firebase.FirestoreClass
+import com.abdelrahman.amr.tahliluk_doctor.models.Patient
 import com.abdelrahman.amr.tahliluk_doctor.models.Reserve
 import com.abdelrahman.amr.tahliluk_doctor.utilities.Constants
 import com.amrmedhatandroid.tahliluk_laboratory.database.PreferenceManager
@@ -32,5 +33,20 @@ class CompletedReservationsRepository {
             runBlocking { mReservationsArrayList.emit(reservationsList) }
         }
         return mReservationsArrayList
+    }
+
+    private var mPatient: MutableStateFlow<Patient> =
+        MutableStateFlow(Patient())
+
+    suspend fun getPatientInfo(collectionName:String,patientId: String):MutableStateFlow<Patient>{
+        FirestoreClass().getPatientInfo(collectionName,patientId).addOnSuccessListener {
+            val patient= Patient()
+            patient.firstName = it.get(Constants.KEY_PATIENT_FIRST_NAME) as String
+            patient.lastName = it.get(Constants.KEY_PATIENT_LAST_NAME) as String
+            patient.image = it.get(Constants.KEY_PATIENT_IMAGE) as String
+
+            runBlocking { mPatient.emit(patient) }
+        }
+        return mPatient
     }
 }
