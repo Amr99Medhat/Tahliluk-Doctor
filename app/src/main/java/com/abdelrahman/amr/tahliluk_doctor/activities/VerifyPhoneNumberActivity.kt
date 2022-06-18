@@ -72,11 +72,8 @@ class VerifyPhoneNumberActivity : AppCompatActivity() {
         mDoctorLab=intent.getStringExtra(Constants.KEY_DOCTOR_LAB_ID)
         mLunchState = intent.getStringExtra(Constants.KEY_LUNCH_STATE)
 
-        //TODO("I Disabled the verification fun to test and will enable it")
-        //verifyPhoneNumberViewModel.sendVerificationCodeToLab(this, labPhoneNumber!!, mCallbacks)
-        lifecycleScope.launchWhenResumed {
-            signUp()
-        }
+        mVerifyPhoneNumberViewModel.sendVerificationCodeToLab(this, mDoctorPhoneNumber!!, mCallbacks)
+
     }
 
 
