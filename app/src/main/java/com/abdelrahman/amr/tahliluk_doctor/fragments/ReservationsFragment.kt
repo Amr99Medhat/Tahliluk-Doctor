@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -46,21 +47,21 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener {
+class ReservationsFragment : Fragment(), DatePickerListener, ReservationListener {
     private lateinit var mReservationFragment: FragmentReservationsBinding
     private lateinit var mReservationsViewModel: ReservationsViewModel
     private lateinit var mReservationsListAdapter: ReservationsAdapter
-    private  var mReservationsList: ArrayList<Reserve> = ArrayList()
+    private var mReservationsList: ArrayList<Reserve> = ArrayList()
     private lateinit var bindingDialog: DialogProgressBinding
     private var parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
     private var mCurrentLatLong: LatLng? = null
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mReservationsViewModel = ViewModelProvider(this)[ReservationsViewModel::class.java]
+        checkPermission()
 
     }
 
@@ -71,7 +72,7 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
         mReservationFragment = FragmentReservationsBinding.inflate(layoutInflater)
         bindingDialog = DialogProgressBinding.inflate(layoutInflater)
         setDatePicker()
-        checkPermission()
+
         getCurrentLocation()
 
         return mReservationFragment.root
@@ -126,7 +127,7 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
         }
         val dateString = sdf.format(calendar.time)
         mReservationsList = ArrayList()
-        if (mReservationsList.isNotEmpty()){
+        if (mReservationsList.isNotEmpty()) {
             mReservationsList.clear()
         }
         getReservations(dateString)
@@ -136,29 +137,29 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
     @SuppressLint("NotifyDataSetChanged")
     private fun getReservations(orderDate: String) {
 
-        lifecycleScope.launchWhenResumed{
+        lifecycleScope.launchWhenResumed {
 
-            mReservationsViewModel.getReservations(orderDate,requireContext()).collect {
-                Log.d("size",it.size.toString())
-                Log.d("date",orderDate)
+            mReservationsViewModel.getReservations(orderDate, requireContext()).collect {
+                Log.d("size", it.size.toString())
+                Log.d("date", orderDate)
 
 
-                    if (it.isEmpty()) {
-                        mReservationFragment.progressBar.visibility = View.GONE
-                        mReservationFragment.rvReservations.visibility = View.GONE
-                        mReservationFragment.tvNoReservations.visibility = View.VISIBLE
-                    }
-                    else{
-                        mReservationsList=it
-                        SupportClass.loading(false, null, mReservationFragment.progressBar)
-                        mReservationFragment.rvReservations.visibility = View.VISIBLE
-                        mReservationFragment.tvNoReservations.visibility = View.GONE
-                        mReservationsListAdapter = ReservationsAdapter(
-                            mReservationsList,this@ReservationsFragment)
-                        mReservationFragment.rvReservations.adapter =
-                            mReservationsListAdapter
+                if (it.isEmpty()) {
+                    mReservationFragment.progressBar.visibility = View.GONE
+                    mReservationFragment.rvReservations.visibility = View.GONE
+                    mReservationFragment.tvNoReservations.visibility = View.VISIBLE
+                } else {
+                    mReservationsList = it
+                    SupportClass.loading(false, null, mReservationFragment.progressBar)
+                    mReservationFragment.rvReservations.visibility = View.VISIBLE
+                    mReservationFragment.tvNoReservations.visibility = View.GONE
+                    mReservationsListAdapter = ReservationsAdapter(
+                        mReservationsList, this@ReservationsFragment
+                    )
+                    mReservationFragment.rvReservations.adapter =
+                        mReservationsListAdapter
 
-                    }
+                }
             }
         }
     }
@@ -196,19 +197,19 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
             bindingDialog.tvProgressText
         )
         var patient = Patient()
-       lifecycleScope.launchWhenResumed {
-           mReservationsViewModel.getPatientInfo(reserve.patientId!!).collect {
-               patient = it
+        lifecycleScope.launchWhenResumed {
+            mReservationsViewModel.getPatientInfo(reserve.patientId!!).collect {
+                patient = it
 
-           }
-       }
+            }
+        }
         coroutineScope.launch {
             delay(500)
             val reservationDetailsFragment = ReservationsDetailsFragment.newInstance()
             val bundle = Bundle()
-            bundle.putParcelable(Constants.Reservation,reserve)
-             bundle.putString(Constants.KEY_PATIENT_FIRST_NAME, patient.firstName)
-            Log.d("name",patient.firstName)
+            bundle.putParcelable(Constants.Reservation, reserve)
+            bundle.putString(Constants.KEY_PATIENT_FIRST_NAME, patient.firstName)
+            Log.d("name", patient.firstName)
             bundle.putString(Constants.KEY_PATIENT_LAST_NAME, patient.lastName)
             bundle.putString(Constants.KEY_PATIENT_IMAGE, patient.image)
             reservationDetailsFragment.arguments = bundle
@@ -244,18 +245,41 @@ class ReservationsFragment : Fragment(), DatePickerListener,ReservationListener 
             Uri.parse("https://www.google.co.in/maps/dir/${mCurrentLatLong!!.latitude},${mCurrentLatLong!!.longitude}/${latlan.latitude},${latlan.longitude}")
         val dirIntent = Intent(Intent.ACTION_VIEW, uri)
         dirIntent.setPackage("com.google.android.apps.maps")
-            startActivity(dirIntent)
+        startActivity(dirIntent)
 
     }
+
     private fun checkPermission(){
-        if (ActivityCompat.checkSelfPermission(requireContext(),Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED
-            &&ActivityCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
-            &&ActivityCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CALL_PHONE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION),101)
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    getCurrentLocation()
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    getCurrentLocation()
+                } else -> {
+                // No location access granted.
+            }
+            }
         }
 
+        if ( ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED){
+            getCurrentLocation()
+        }
+        else{
+            locationPermissionRequest.launch(arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CALL_PHONE))
+        }
     }
-
 
 
 }
